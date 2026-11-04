@@ -1,16 +1,12 @@
+import type { ComponentType } from "react";
 import { Network } from "lucide-react";
 import type { TermixApp } from "@termix-ssh/plugin-sdk/frontend";
 import { initApi } from "./api";
+import { wireguardEnabled } from "./enabled";
+import { WireguardCard } from "./WireguardCard";
 import { WireguardTab } from "./WireguardTab";
 
 const TAB_ID = "wireguard";
-
-function wireguardEnabled(host: object | null | undefined): boolean {
-  const all = (host as { pluginSettings?: unknown } | null | undefined)
-    ?.pluginSettings as
-    Record<string, Record<string, unknown> | undefined> | undefined;
-  return all?.[TAB_ID]?.enableWireguard === true;
-}
 
 export function activate(app: TermixApp): void {
   initApi(app.api);
@@ -35,5 +31,15 @@ export function activate(app: TermixApp): void {
     order: 47,
     tabType: TAB_ID,
     when: (host) => canUse && !!host.enableSsh && wireguardEnabled(host),
+  });
+
+  // Fills the WireGuard card in Host Metrics, when that plugin runs.
+  app.registerSlotContribution("host-metrics.managers", {
+    actionId: "wireguard_manager",
+    titleKey: "manager.title",
+    kind: "component",
+    component: WireguardCard as unknown as ComponentType<
+      Record<string, unknown>
+    >,
   });
 }

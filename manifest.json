@@ -17,7 +17,8 @@
     "Add clients with generated keys, a free IP, a config file and a QR code",
     "Turn clients on or off, rotate their keys and remove them",
     "See live handshakes and traffic for every client",
-    "Edit the raw config with a check before it is saved, and read the logs"
+    "Edit the raw config with a check before it is saved, and read the logs",
+    "A WireGuard card in Host Metrics"
   ],
   "env": [],
   "engine": {

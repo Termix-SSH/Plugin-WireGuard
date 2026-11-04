@@ -155,5 +155,12 @@
     "deleteTitle": "Delete {{name}}?",
     "deleteDesc": "The interface is stopped and its config, keys and saved client files are removed from the host.",
     "deleteFailed": "Could not delete the interface."
+  },
+  "manager": {
+    "title": "WireGuard",
+    "disabled": "Turn on WireGuard in this host's settings to use this card.",
+    "start": "Bring up",
+    "stop": "Bring down",
+    "done": "{{name}} updated"
   }
 }

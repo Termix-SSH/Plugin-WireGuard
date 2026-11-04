@@ -42,6 +42,10 @@ The raw editor hides private and preshared keys. Leave the placeholder in place 
 
 Interfaces named `wgtx*` belong to the Tunnels plugin and are never shown or changed here.
 
+## In Host Metrics
+
+With [Host Metrics](/plugins/host-metrics) on, this plugin fills its WireGuard card. It lists the host's interfaces and brings them up or down, which needs edit access to the host. Click an interface to open the WireGuard tab. Turn on WireGuard for the host first.
+
 ## Limits
 
 - Linux hosts only. Boot start needs systemd.

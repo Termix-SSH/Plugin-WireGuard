@@ -27,6 +27,7 @@ Read the [docs](https://docs.termix.site/plugins/wireguard) to set it up and use
 - Live handshake and traffic for every client
 - Edit the raw config with a check before it is saved, and read the logs
 - Interfaces made by the Tunnels plugin are left alone
+- A WireGuard card in Host Metrics
 
 <br />
 

@@ -10,3 +10,4 @@
 - Turn clients on or off, rotate their keys and remove them
 - Live handshake and traffic for every client
 - A config editor with a check before saving, a log viewer and service controls
+- A WireGuard card in Host Metrics

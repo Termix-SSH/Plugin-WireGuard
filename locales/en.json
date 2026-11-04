@@ -163,5 +163,28 @@
     "start": "Bring up",
     "stop": "Bring down",
     "done": "{{name}} updated"
+  },
+  "operations": {
+    "list": {
+      "title": "List WireGuard interfaces"
+    },
+    "down": {
+      "title": "WireGuard interfaces down"
+    },
+    "start": {
+      "title": "Start WireGuard interface"
+    },
+    "stop": {
+      "title": "Stop WireGuard interface"
+    },
+    "restart": {
+      "title": "Restart WireGuard interface"
+    },
+    "interfaces": {
+      "title": "WireGuard interfaces",
+      "address": "Address",
+      "port": "Port",
+      "clients": "Clients"
+    }
   }
 }

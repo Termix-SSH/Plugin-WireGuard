@@ -4,6 +4,7 @@ import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { ListBadge, ListRow, PanelList } from "@termix-ssh/plugin-sdk/ui";
 import type { InterfaceView } from "../shared/types";
 import { errorMessage, listInterfaces } from "./api";
+import { Loading } from "./Loading";
 
 export function InterfacesView({
   hostId,
@@ -32,7 +33,7 @@ export function InterfacesView({
   }, [isVisible, load]);
 
   if (failed) return <p className="p-2 text-sm text-destructive">{failed}</p>;
-  if (!items) return null;
+  if (!items) return <Loading />;
 
   if (items.length === 0) {
     return (

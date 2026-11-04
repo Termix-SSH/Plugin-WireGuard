@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useToast, useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { FormFooter, TextAreaField } from "@termix-ssh/plugin-sdk/ui";
 import { errorMessage, getConfig, saveConfig } from "./api";
+import { Loading } from "./Loading";
 
 export function ConfigView({ hostId, name }: { hostId: number; name: string }) {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ export function ConfigView({ hostId, name }: { hostId: number; name: string }) {
   }, [load]);
 
   if (failed) return <p className="p-2 text-sm text-destructive">{failed}</p>;
-  if (saved === null) return null;
+  if (saved === null) return <Loading />;
 
   const save = async () => {
     setSaving(true);

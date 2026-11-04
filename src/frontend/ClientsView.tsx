@@ -29,6 +29,7 @@ import {
   rotateClient,
   setClientEnabled,
 } from "./api";
+import { Loading } from "./Loading";
 import { ClientConfigView } from "./ClientConfigView";
 import { formatAgo, formatBytes, isConnected } from "./format";
 
@@ -67,7 +68,7 @@ export function ClientsView({
   }, [load]);
 
   if (failed) return <p className="p-2 text-sm text-destructive">{failed}</p>;
-  if (!clients) return null;
+  if (!clients) return <Loading />;
 
   if (mode.kind === "config") {
     return (

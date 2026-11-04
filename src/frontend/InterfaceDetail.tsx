@@ -4,6 +4,7 @@ import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import { BackButton, PanelShell, Segmented } from "@termix-ssh/plugin-sdk/ui";
 import type { InterfaceView, WireguardStatus } from "../shared/types";
 import { errorMessage, listInterfaces } from "./api";
+import { Loading } from "./Loading";
 import { ClientsView } from "./ClientsView";
 import { ConfigView } from "./ConfigView";
 import { ServiceView } from "./ServiceView";
@@ -78,7 +79,9 @@ export function InterfaceDetail({
       <div className="flex shrink-0 flex-col gap-2">
         {failed ? (
           <p className="p-2 text-sm text-destructive">{failed}</p>
-        ) : !item ? null : section === "clients" ? (
+        ) : !item ? (
+          <Loading />
+        ) : section === "clients" ? (
           <ClientsView hostId={hostId} item={item} />
         ) : section === "settings" ? (
           <SettingsView

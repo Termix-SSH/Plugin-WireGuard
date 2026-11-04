@@ -1,0 +1,65 @@
+{
+  "id": "wireguard",
+  "name": "WireGuard",
+  "version": "1.0.0",
+  "description": "Install WireGuard on your hosts and manage interfaces, clients and configs from one tab.",
+  "author": {
+    "name": "Termix"
+  },
+  "license": "Apache-2.0",
+  "repository": "https://github.com/Termix-SSH/Plugin-WireGuard",
+  "docs": "https://docs.termix.site/plugins/wireguard",
+  "category": "Networking",
+  "icon": "Network",
+  "features": [
+    "Install WireGuard and start, stop or restart interfaces on a host",
+    "Create server interfaces with NAT and IP forwarding set up for you",
+    "Add clients with generated keys, a free IP, a config file and a QR code",
+    "Turn clients on or off, rotate their keys and remove them",
+    "See live handshakes and traffic for every client",
+    "Edit the raw config with a check before it is saved, and read the logs"
+  ],
+  "env": [],
+  "engine": {
+    "termix": ">=26.10.3",
+    "api": "^1.5"
+  },
+  "capabilities": [
+    "hosts:read",
+    "credentials:use",
+    "ssh:connect",
+    "network:serve",
+    "users:impersonate",
+    "ui:surface"
+  ],
+  "contributes": {
+    "tabs": [
+      {
+        "id": "wireguard",
+        "titleKey": "tab.title",
+        "icon": "Network",
+        "openFrom": ["host-context-menu", "palette"]
+      }
+    ],
+    "permissions": [
+      {
+        "name": "use",
+        "titleKey": "permissions.use.title",
+        "descriptionKey": "permissions.use.description",
+        "defaultRoles": ["admin", "user"]
+      }
+    ],
+    "settings": {
+      "host": {
+        "enableKey": "enableWireguard",
+        "enableLabelKey": "settings.host.enable.label",
+        "enableDescriptionKey": "settings.host.enable.description",
+        "enableDefault": false,
+        "editorGroup": "ssh",
+        "fields": []
+      }
+    }
+  },
+  "locales": "locales",
+  "platforms": ["linux", "win32", "darwin"]
+}

@@ -82,6 +82,42 @@ function api(current: unknown) {
 const host = { id: 1, name: "vpn", enableSsh: true };
 
 describe(`${manifest.id} activate`, () => {
+  it("registers a dashboard card showing interfaces per host", async () => {
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      permissions: ["wireguard.use"],
+      hosts: [{ id: "7", name: "gate", ip: "10.0.0.7", port: 22 }],
+      api: {
+        get: vi.fn(async () => ({
+          data: [
+            {
+              hostId: 7,
+              installed: true,
+              total: 2,
+              up: 1,
+              down: 1,
+              downNames: ["wg1"],
+              clients: 4,
+              checkedAt: "",
+            },
+          ],
+        })),
+      } as never,
+    });
+    expect(rendered.registered.dashboardCards()).toEqual(["wireguard-hosts"]);
+    const fields = (
+      manifest.contributes.settings as {
+        host: { fields: Array<{ key: string }> };
+      }
+    ).host.fields.map((f) => f.key);
+    expect(fields).toContain("showPanel");
+    rendered.renderDashboardCard("wireguard-hosts");
+    expect(await screen.findByText("gate")).toBeTruthy();
+    expect(screen.getByText("1 down")).toBeTruthy();
+    expect(screen.getByText("2 interfaces, 4 clients")).toBeTruthy();
+  });
+
   it("registers the host tab", async () => {
     rendered = await renderWithApp(plugin, { manifest, locales });
     expect(rendered.registered.tabs()).toEqual(["wireguard"]);

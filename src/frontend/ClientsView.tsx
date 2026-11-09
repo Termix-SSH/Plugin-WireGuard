@@ -17,6 +17,9 @@ import {
   PanelList,
   TextField,
   useConfirm,
+  ToolbarBand,
+  LoadingState,
+  PanelShell,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { ClientConfig, ClientView, InterfaceView } from "../shared/types";
 import {
@@ -29,7 +32,6 @@ import {
   rotateClient,
   setClientEnabled,
 } from "./api";
-import { Loading } from "./Loading";
 import { ClientConfigView } from "./ClientConfigView";
 import { formatAgo, formatBytes, isConnected } from "./format";
 
@@ -67,8 +69,9 @@ export function ClientsView({
     void load();
   }, [load]);
 
-  if (failed) return <p className="p-2 text-sm text-destructive">{failed}</p>;
-  if (!clients) return <Loading />;
+  if (failed)
+    return <p className="px-3 py-2 text-xs text-destructive">{failed}</p>;
+  if (!clients) return <LoadingState />;
 
   if (mode.kind === "config") {
     return (
@@ -106,33 +109,39 @@ export function ClientsView({
 
   if (mode.kind === "add") {
     return (
-      <div className="flex flex-col gap-3">
-        <TextField
-          label={t("clients.name")}
-          hint={t("clients.nameHint")}
-          value={name}
-          onChange={setName}
-          placeholder="phone"
-          mono
-        />
-        <TextField
-          label={t("clients.allowed")}
-          hint={t("clients.allowedHint", { value: item.allowedIps })}
-          value={allowed}
-          onChange={setAllowed}
-          placeholder={item.allowedIps}
-          mono
-        />
-        {error && <p className="text-xs text-destructive">{error}</p>}
-        <FormFooter
-          onCancel={() => setMode({ kind: "list" })}
-          onSave={() => void create()}
-          saving={saving}
-          saveLabel={t("clients.create")}
-          cancelLabel={t("common.cancel")}
-          disabled={!name.trim()}
-        />
-      </div>
+      <PanelShell
+        chrome={false}
+        footer={
+          <FormFooter
+            onCancel={() => setMode({ kind: "list" })}
+            onSave={() => void create()}
+            saving={saving}
+            saveLabel={t("clients.create")}
+            cancelLabel={t("common.cancel")}
+            disabled={!name.trim()}
+          />
+        }
+      >
+        <div className="flex flex-col gap-3 p-3">
+          <TextField
+            label={t("clients.name")}
+            hint={t("clients.nameHint")}
+            value={name}
+            onChange={setName}
+            placeholder="phone"
+            mono
+          />
+          <TextField
+            label={t("clients.allowed")}
+            hint={t("clients.allowedHint", { value: item.allowedIps })}
+            value={allowed}
+            onChange={setAllowed}
+            placeholder={item.allowedIps}
+            mono
+          />
+          {error && <p className="text-xs text-destructive">{error}</p>}
+        </div>
+      </PanelShell>
     );
   }
 
@@ -186,17 +195,17 @@ export function ClientsView({
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-col">
+      <ToolbarBand>
         <Button variant="outline" onClick={() => setMode({ kind: "add" })}>
           {t("clients.add")}
         </Button>
         <Button variant="ghost" size="icon" onClick={() => void load()}>
           <RefreshCw className="size-4" />
         </Button>
-      </div>
+      </ToolbarBand>
       {clients.length === 0 ? (
-        <p className="px-1 py-6 text-center text-xs text-muted-foreground/60">
+        <p className="px-3 py-6 text-center text-xs text-muted-foreground/60">
           {t("clients.empty")}
         </p>
       ) : (

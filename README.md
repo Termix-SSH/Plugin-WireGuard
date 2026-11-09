@@ -28,6 +28,7 @@ Read the [docs](https://docs.termix.site/plugins/wireguard) to set it up and use
 - Edit the raw config with a check before it is saved, and read the logs
 - Interfaces made by the Tunnels plugin are left alone
 - A WireGuard card in Host Metrics
+- Start, stop and restart interfaces through Termix actions, with down interfaces as a status tile
 
 <br />
 
